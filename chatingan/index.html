@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Chat Group</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Password Screen -->
+        <div id="password-screen" class="screen active">
+            <div class="password-container">
+                <div class="password-header">
+                    <div class="app-icon">🔒</div>
+                    <h1>Private Chat Room</h1>
+                    <p class="subtitle">Grup chat dengan password untuk keamanan</p>
+                </div>
+                
+                <div class="password-form">
+                    <div class="form-group">
+                        <label for="room-password">
+                            <i class="fas fa-key"></i> Password Room
+                        </label>
+                        <div class="input-with-button">
+                            <input type="password" 
+                                   id="room-password" 
+                                   placeholder="Masukkan password grup..."
+                                   autocomplete="off">
+                            <button id="toggle-password" class="icon-btn small">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="join-room" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Masuk ke Grup Chat
+                    </button>
+                    
+                    <div class="room-info">
+                        <h3><i class="fas fa-users"></i> Room Info</h3>
+                        <div class="info-cards">
+                            <div class="info-card">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Private Room</span>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-history"></i>
+                                <span>Chat Tersimpan</span>
+                            </div>
+                            <div class="info-card">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Responsive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="password-footer">
+                    <p><i class="fas fa-exclamation-circle"></i> Hanya yang tahu password yang bisa join</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Screen -->
+        <div id="profile-screen" class="screen">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <button id="back-to-password" class="icon-btn back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h2>Buat Profil Anda</h2>
+                    <p class="room-indicator">
+                        <i class="fas fa-unlock"></i> Room: <span id="room-name">Private</span>
+                    </p>
+                </div>
+                
+                <div class="profile-content">
+                    <div class="avatar-section">
+                        <h3><i class="fas fa-user-circle"></i> Pilih Avatar</h3>
+                        <div class="avatar-grid">
+                            <div class="avatar-option" data-avatar="1">
+                                <div class="avatar-icon">👨‍💻</div>
+                                <span>Developer</span>
+                            </div>
+                            <div class="avatar-option" data-avatar="2">
+                                <div class="avatar-icon">👩‍💼</div>
+                                <span>Manager</span>
+                            </div>
+                            <div class="avatar-option" data-avatar="3">
+                                <div class="avatar-icon">🧑‍🎨</div>
+                                <span>Artist</span>
+                            </div>
+                            <div class="avatar-option" data-avatar="4">
+                                <div class="avatar-icon">👩‍🎤</div>
+                                <span>Singer</span>
+                            </div>
+                            <div class="avatar-option" data-avatar="5">
+                                <div class="avatar-icon">🧑‍🔬</div>
+                                <span>Scientist</span>
+                            </div>
+                            <div class="avatar-option" data-avatar="6">
+                                <div class="avatar-icon">👨‍🚀</div>
+                                <span>Astronaut</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="name-section">
+                        <div class="form-group">
+                            <label for="user-name">
+                                <i class="fas fa-user-edit"></i> Nama Anda
+                            </label>
+                            <input type="text" 
+                                   id="user-name" 
+                                   placeholder="Masukkan nama panggilan..."
+                                   maxlength="20">
+                            <div class="char-counter">
+                                <span id="char-count">0</span>/20 karakter
+                            </div>
+                        </div>
+                        
+                        <div class="color-picker">
+                            <h4><i class="fas fa-palette"></i> Warna Profil</h4>
+                            <div class="color-options">
+                                <div class="color-option" style="background: #6a11cb;" data-color="#6a11cb"></div>
+                                <div class="color-option" style="background: #2575fc;" data-color="#2575fc"></div>
+                                <div class="color-option" style="background: #ff6b6b;" data-color="#ff6b6b"></div>
+                                <div class="color-option" style="background: #51cf66;" data-color="#51cf66"></div>
+                                <div class="color-option" style="background: #ffa726;" data-color="#ffa726"></div>
+                                <div class="color-option" style="background: #8b5cf6;" data-color="#8b5cf6"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="enter-chat" class="btn-primary enter-btn">
+                        <i class="fas fa-comments"></i> Masuk ke Chat Room
+                    </button>
+                    
+                    <div class="online-users-preview">
+                        <h4><i class="fas fa-user-friends"></i> Sedang Online</h4>
+                        <div class="users-list" id="users-preview">
+                            <div class="user-badge">
+                                <span class="user-dot online"></span>
+                                <span>Tunggu...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Screen -->
+        <div id="chat-screen" class="screen">
+            <div class="chat-wrapper">
+                <!-- Sidebar untuk Desktop -->
+                <div class="sidebar" id="sidebar">
+                    <div class="sidebar-header">
+                        <h3><i class="fas fa-users"></i> Online</h3>
+                        <button id="toggle-sidebar" class="icon-btn small">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="users-online" id="users-online">
+                        <!-- Daftar user online akan dimuat di sini -->
+                        <div class="loading-users">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Memuat user...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-footer">
+                        <div class="room-info-sidebar">
+                            <i class="fas fa-unlock-alt"></i>
+                            <span>Room: Private</span>
+                        </div>
+                        <button id="leave-room" class="btn-secondary small">
+                            <i class="fas fa-sign-out-alt"></i> Keluar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Main Chat Area -->
+                <div class="chat-main">
+                    <!-- Header Chat -->
+                    <div class="chat-header">
+                        <div class="header-left">
+                            <button id="toggle-sidebar-mobile" class="icon-btn mobile-only">
+                                <i class="fas fa-users"></i>
+                            </button>
+                            <button id="back-to-profile" class="icon-btn back-btn">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <div class="chat-title">
+                                <h2>Group Chat</h2>
+                                <p class="online-count">
+                                    <i class="fas fa-circle online"></i>
+                                    <span id="online-count">1</span> online
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="header-right">
+                            <button id="room-info-btn" class="icon-btn" title="Info Room">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-btn" title="Ganti Tema">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <button id="clear-chat" class="icon-btn" title="Hapus Chat">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Area Chat -->
+                    <div class="chat-area" id="chat-area">
+                        <!-- Pesan akan dimasukkan di sini -->
+                        <div class="welcome-message">
+                            <div class="welcome-icon">💬</div>
+                            <h3>Selamat datang di Group Chat!</h3>
+                            <p>Percakapan dalam room ini bersifat private.</p>
+                            <div class="room-rules">
+                                <div class="rule">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Hanya user dengan password yang bisa join</span>
+                                </div>
+                                <div class="rule">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Chat tersimpan di browser masing-masing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Input Chat -->
+                    <div class="chat-input-area">
+                        <div class="input-wrapper">
+                            <button id="emoji-btn" class="icon-btn">
+                                <i class="far fa-smile"></i>
+                            </button>
+                            <input type="text" 
+                                   id="message-input" 
+                                   placeholder="Ketik pesan di sini..."
+                                   autocomplete="off">
+                            <div class="input-actions">
+                                <button id="attach-btn" class="icon-btn" title="Lampirkan">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <button id="send-btn" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="typing-indicator" id="typing-indicator">
+                            <!-- Indicator ketikan akan muncul di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Room Info -->
+    <div id="room-info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-info-circle"></i> Room Information</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-item">
+                    <i class="fas fa-key"></i>
+                    <div>
+                        <strong>Password Room</strong>
+                        <p id="modal-password">icebear</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-user-friends"></i>
+                    <div>
+                        <strong>User Online</strong>
+                        <p id="modal-online-count">1 user</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-database"></i>
+                    <div>
+                        <strong>Penyimpanan</strong>
+                        <p>Local Browser</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="share-room" class="btn-secondary">
+                    <i class="fas fa-share-alt"></i> Bagikan Password
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Konfirmasi Hapus Chat -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Hapus Chat</h3>
+            </div>
+            <div class="modal-body">
+                <p>Hapus semua pesan dalam room ini? Tindakan ini hanya menghapus dari browser Anda.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-delete" class="btn-secondary">Batal</button>
+                <button id="confirm-delete" class="btn-danger">Hapus</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emoji Picker -->
+    <div id="emoji-picker" class="emoji-picker">
+        <div class="emoji-header">
+            <span>Emoji</span>
+            <button class="emoji-close">&times;</button>
+        </div>
+        <div class="emoji-grid">
+            <span>😊</span><span>😂</span><span>🥰</span><span>😎</span>
+            <span>🤔</span><span>👍</span><span>❤️</span><span>🔥</span>
+            <span>🎉</span><span>🙏</span><span>😢</span><span>🤣</span>
+            <span>😍</span><span>🥳</span><span>👏</span><span>💯</span>
+        </div>
+    </div>
+    <!-- Modal Konfirmasi Hapus Chat -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Hapus SEMUA Chat</h3>
+            </div>
+            <div class="modal-body">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p><strong>PERINGATAN:</strong> Ini akan menghapus SEMUA pesan dari awal sampai akhir!</p>
+                </div>
+                <p>Semua chat dari semua user akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.</p>
+                <p class="small-text">Chat yang dihapus tidak bisa dikembalikan.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-delete" class="btn-secondary">Batal</button>
+                <button id="confirm-delete" class="btn-danger">
+                    <i class="fas fa-trash"></i> Hapus Semua
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+    
+    <script src="script.js"></script>
+    <script src="profile-database.js"></script>
+    <script src="chat-app-with-db.js"></script>
+</body>
+</html>
